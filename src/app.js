@@ -14,20 +14,38 @@ const message = document.querySelector("#message");
 const summary = document.querySelector("#summary");
 const filters = [...document.querySelectorAll("[data-filter]")];
 
-let tareas = ["Revisar requisitos", "Diseñar pruebas", "Refactorizar código"];
+
+let tareas = [
+  { id: 1, titulo: "Revisar requisitos", completada: false },
+  { id: 2, titulo: "Diseñar pruebas", completada: false },
+  { id: 3, titulo: "Refactorizar código", completada: false }
+];
+
+let siguienteId = 4;
+
 let filtro = "todas";
+
 
 function render() {
   list.innerHTML = "";
-  tareas.forEach((titulo, index) => {
+
+  tareas.forEach((tarea, index) => {
     const li = document.createElement("li");
     li.className = "task";
-    li.innerHTML = `<span class="title">${titulo}</span>
-      <span class="task-actions"><button data-delete="${index}">Eliminar</button></span>`;
+
+    li.innerHTML = `
+      <span class="title">${tarea.titulo}</span>
+      <span class="task-actions">
+        <button data-delete="${index}">Eliminar</button>
+      </span>
+    `;
+
     list.appendChild(li);
   });
+
   summary.textContent = `Total: ${tareas.length}`;
 }
+
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -36,7 +54,16 @@ form.addEventListener("submit", (event) => {
     message.textContent = "Escribe un título antes de agregar.";
     return;
   }
-  tareas.push(titulo); // código deliberadamente acoplado/mutable para refactorizar
+  
+const nuevaTarea = {
+  id: siguienteId,
+  titulo: titulo,
+  completada: false
+};
+
+tareas.push(nuevaTarea);
+siguienteId++;
+ // código deliberadamente acoplado/mutable para refactorizar
   input.value = "";
   message.textContent = "";
   render();

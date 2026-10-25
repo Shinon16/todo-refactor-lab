@@ -49,13 +49,6 @@ Debemos conservar la visualización de las tareas iniciales, la posibilidad de a
 2. Al agregar una tarea válida debe aparecer en la lista y actualizarse el contador.
 3. Al eliminar una tarea debe desaparecer de la lista y actualizarse el total.
 
-
-### Tres comportamientos observables que NO deben cambiar
-
-1. 
-2. 
-3. 
-
 ## Registro RED → GREEN → REFACTOR
 
 Documenta al menos una iteración:
@@ -66,4 +59,30 @@ Documenta al menos una iteración:
 
 ## Pair Programming
 
-Registra por misión quién fue **Driver** y quién **Navigator**. Intercambien roles con frecuencia y no hagan commit hasta que ambos puedan explicar el código y la prueba.
+
+## Misión 1 - Cambiar el modelo de string a objeto
+
+**Driver:** Christian Raul Paramo Bautista  
+**Navigator:** Pablo Alejos Macias
+
+### Cambios realizados
+
+Se modificó la estructura inicial de las tareas, pasando de un array de strings a un array de objetos.
+
+Cada tarea cuenta ahora con tres propiedades:
+- id: identificador único.
+- titulo: descripción de la tarea.
+- completada: estado de la tarea.
+
+También se adaptó la función render() para mostrar los títulos desde los objetos y se actualizó el formulario para crear tareas con identificadores únicos.
+
+### Decisiones de diseño
+
+Las propiedades id, titulo y completada pertenecen a los datos de cada tarea.
+
+Los botones, clases CSS y elementos HTML pertenecen a la interfaz, ya que solamente permiten visualizar e interactuar con la información.
+
+### Comprobación
+
+Se verificó manualmente que las tareas continúan mostrándose y que las operaciones de agregar y eliminar siguen funcionando.
+
