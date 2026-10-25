@@ -51,11 +51,14 @@ Debemos conservar la visualización de las tareas iniciales, la posibilidad de a
 
 ## Registro RED → GREEN → REFACTOR
 
-Documenta al menos una iteración:
+**RED:**
+Se ejecutó la prueba inicial de crearTarea(), la cual falló debido a que la función todavía no estaba implementada y lanzaba un error.
 
-- **RED:** ¿qué prueba escribiste y por qué falló?
-- **GREEN:** ¿cuál fue el cambio mínimo que la hizo pasar?
-- **REFACTOR:** ¿qué mejoraste sin cambiar el comportamiento?
+**GREEN:**
+Se implementó la función para devolver un objeto con las propiedades id, titulo y completada. Al ejecutar npm test, la prueba pasó correctamente.
+
+**REFACTOR:**
+Se simplificó la construcción del objeto utilizando la sintaxis abreviada de propiedades de JavaScript, eliminando repeticiones innecesarias sin cambiar el resultado.
 
 ## Pair Programming
 
@@ -86,3 +89,26 @@ Los botones, clases CSS y elementos HTML pertenecen a la interfaz, ya que solame
 
 Se verificó manualmente que las tareas continúan mostrándose y que las operaciones de agregar y eliminar siguen funcionando.
 
+
+## Misión 2 - Primera función de dominio y prueba unitaria
+
+**Responsable de implementación:** Christian Raul Paramo Bautista
+
+### Objetivo
+Implementar la función crearTarea(id, titulo) y comprobar su funcionamiento mediante una prueba unitaria con Vitest.
+
+### Ciclo RED - GREEN - REFACTOR
+
+**RED:**
+Se ejecutó la prueba inicial de crearTarea(), la cual falló debido a que la función todavía no estaba implementada y lanzaba un error.
+
+**GREEN:**
+Se implementó la función para devolver un objeto con las propiedades id, titulo y completada. Al ejecutar npm test, la prueba pasó correctamente.
+
+**REFACTOR:**
+Se simplificó la construcción del objeto utilizando la sintaxis abreviada de propiedades de JavaScript, eliminando repeticiones innecesarias sin cambiar el resultado.
+
+### Resultado
+La prueba unitaria verifica que, al recibir un identificador y un título, la función devuelve una tarea con estado completada: false.
+
+La prueba continuó pasando después de la refactorización.
