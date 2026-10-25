@@ -190,3 +190,44 @@ La función recibe los datos y devuelve un resultado sin interactuar directament
 ### Resultado
 
 Se ejecutaron cinco pruebas unitarias, todas exitosas y sin errores.
+
+
+## Misión 5 - Filtrar tareas utilizando filter()
+
+**Responsable de implementación:** Christian Raul Paramo Bautista
+
+### Objetivo
+Implementar las funciones obtenerPendientes() y obtenerTerminadas() utilizando el método filter() de JavaScript para seleccionar tareas según su estado.
+
+### Ciclo RED - GREEN - REFACTOR
+
+**RED:**
+Se desarrollaron cuatro pruebas unitarias antes de implementar las funciones. Las pruebas fallaron porque obtenerPendientes() y obtenerTerminadas() todavía no estaban implementadas.
+
+**GREEN:**
+Se implementaron ambas funciones utilizando filter().
+
+- obtenerPendientes() devuelve las tareas cuyo estado completada es false.
+- obtenerTerminadas() devuelve las tareas cuyo estado completada es true.
+
+Después de ejecutar npm test, las nueve pruebas unitarias pasaron correctamente.
+
+**REFACTOR:**
+Se revisó la implementación y se determinó que no requería modificaciones adicionales, debido a que ambas funciones tienen una única responsabilidad, son legibles y no modifican el array original.
+
+### Pruebas realizadas
+
+1. Obtener las tareas pendientes de una colección mixta.
+2. Devolver un array vacío cuando todas las tareas están terminadas.
+3. Obtener las tareas terminadas de una colección mixta.
+4. Devolver arrays vacíos cuando no existen tareas.
+
+### Decisiones de diseño
+
+Se utilizó filter() porque necesitamos seleccionar un subconjunto de tareas que cumpla una condición.
+
+El método devuelve una nueva colección sin alterar el array original, permitiendo mantener separada la lógica de dominio de la interfaz.
+
+### Resultado
+
+Se ejecutaron nueve pruebas unitarias, todas exitosas y sin errores.
