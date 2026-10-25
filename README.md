@@ -154,3 +154,39 @@ modificar la colección original.
 ### Resultado
 Se obtuvo un total de 3 pruebas exitosas y
 ninguna prueba fallida.
+
+
+## Misión 4 - Buscar tareas utilizando find()
+
+**Responsable de implementación:** Christian Raul Paramo Bautista
+
+### Objetivo
+Implementar la función buscarTarea(tareas, id) para localizar una tarea mediante su identificador, utilizando el método find() de JavaScript.
+
+### Ciclo RED - GREEN - REFACTOR
+
+**RED:**
+Se desarrollaron dos pruebas unitarias antes de implementar la función. Ambas fallaron porque buscarTarea() todavía no estaba implementada.
+
+**GREEN:**
+Se implementó buscarTarea() utilizando el método find(), el cual permite localizar una tarea mediante su identificador.
+
+Al ejecutar npm test, las cinco pruebas unitarias pasaron correctamente.
+
+**REFACTOR:**
+Se revisó la implementación y se determinó que no necesitaba modificaciones adicionales, ya que utiliza una operación apropiada, es legible y no modifica la colección original.
+
+### Pruebas realizadas
+
+1. Buscar una tarea mediante un identificador existente y comprobar que devuelve el objeto correspondiente.
+2. Buscar una tarea mediante un identificador inexistente y comprobar que devuelve undefined.
+
+### Decisiones de diseño
+
+Se utilizó find() porque necesitamos encontrar un solo elemento dentro de la colección. Este método expresa mejor la intención de búsqueda que recorrer manualmente el array.
+
+La función recibe los datos y devuelve un resultado sin interactuar directamente con el DOM.
+
+### Resultado
+
+Se ejecutaron cinco pruebas unitarias, todas exitosas y sin errores.
