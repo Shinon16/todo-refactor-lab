@@ -112,3 +112,45 @@ Se simplificó la construcción del objeto utilizando la sintaxis abreviada de p
 La prueba unitaria verifica que, al recibir un identificador y un título, la función devuelve una tarea con estado completada: false.
 
 La prueba continuó pasando después de la refactorización.
+
+
+## Misión 3 - Agregar tareas sin acoplarse al DOM
+
+**Responsable de implementación:** Christian Raul Paramo Bautista
+
+### Objetivo
+Implementar la función agregarTarea(tareas, nuevaTarea)
+para agregar elementos a una colección sin modificar
+el array original y sin depender del DOM.
+
+### Ciclo RED - GREEN - REFACTOR
+
+**RED:**
+Se desarrollaron dos pruebas unitarias antes de
+implementar la función. Ambas fallaron porque
+agregarTarea() todavía no estaba implementada.
+
+**GREEN:**
+Se implementó agregarTarea() utilizando el operador
+spread (...) para devolver un nuevo array con las
+tareas existentes y la nueva tarea.
+
+Después de ejecutar npm test, las tres pruebas
+unitarias pasaron correctamente.
+
+**REFACTOR:**
+Se revisó la implementación y se determinó que
+no era necesario realizar cambios adicionales,
+ya que la función es breve, legible y evita
+modificar la colección original.
+
+### Pruebas realizadas
+
+1. Verificar que una nueva tarea se agregue
+   correctamente a la colección.
+2. Comprobar que la cantidad de tareas aumente
+   sin modificar el array original.
+
+### Resultado
+Se obtuvo un total de 3 pruebas exitosas y
+ninguna prueba fallida.

@@ -32,6 +32,54 @@ describe("crearTarea", () => {
 });
 
 // MISIÓN 3: agrega al menos dos pruebas para agregarTarea().
+
+describe("agregarTarea", () => {
+
+  it("agrega una nueva tarea a la colección", () => {
+    // Arrange
+    const tareas = [
+      { id: 1, titulo: "Revisar requisitos", completada: false }
+    ];
+
+    const nuevaTarea = {
+      id: 2,
+      titulo: "Diseñar pruebas",
+      completada: false
+    };
+
+    // Act
+    const resultado = agregarTarea(tareas, nuevaTarea);
+
+    // Assert
+    expect(resultado).toEqual([
+      { id: 1, titulo: "Revisar requisitos", completada: false },
+      { id: 2, titulo: "Diseñar pruebas", completada: false }
+    ]);
+  });
+
+  it("aumenta la cantidad de tareas sin modificar el array original", () => {
+    // Arrange
+    const tareas = [
+      { id: 1, titulo: "Revisar requisitos", completada: false }
+    ];
+
+    const nuevaTarea = {
+      id: 2,
+      titulo: "Diseñar pruebas",
+      completada: false
+    };
+
+    // Act
+    const resultado = agregarTarea(tareas, nuevaTarea);
+
+    // Assert
+    expect(resultado).toHaveLength(2);
+    expect(tareas).toHaveLength(1);
+    expect(resultado).not.toBe(tareas);
+  });
+
+});
+
 // MISIÓN 4: prueba id existente e inexistente para buscarTarea().
 // MISIÓN 5: prueba colección mixta, sin coincidencias y vacía.
 // MISIÓN 6: prueba cambio correcto, otra tarea intacta e id inexistente.
