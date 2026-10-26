@@ -307,6 +307,54 @@ describe("eliminarTarea", () => {
 
 // MISIÓN 8: prueba obtenerResumen(), incluyendo colección vacía.
 
+describe("obtenerResumen", () => {
+
+  it("cuenta total, pendientes y terminadas de una colección mixta", () => {
+    // Arrange
+    const tareas = [
+      { id: 1, titulo: "Revisar requisitos", completada: false },
+      { id: 2, titulo: "Diseñar pruebas", completada: true },
+      { id: 3, titulo: "Refactorizar código", completada: false },
+      { id: 4, titulo: "Integrar interfaz", completada: true },
+      { id: 5, titulo: "Documentar README", completada: false }
+    ];
+
+    // Act
+    const resumen = obtenerResumen(tareas);
+
+    // Assert
+    expect(resumen).toEqual({ total: 5, pendientes: 3, terminadas: 2 });
+  });
+
+  it("devuelve todos los contadores en cero cuando la colección está vacía", () => {
+    // Arrange
+    const tareas = [];
+
+    // Act
+    const resumen = obtenerResumen(tareas);
+
+    // Assert
+    expect(resumen).toEqual({ total: 0, pendientes: 0, terminadas: 0 });
+  });
+
+  it("no modifica la colección original al calcular el resumen", () => {
+    // Arrange
+    const tareas = [
+      { id: 1, titulo: "Revisar requisitos", completada: true },
+      { id: 2, titulo: "Diseñar pruebas", completada: true }
+    ];
+    const copia = structuredClone(tareas);
+
+    // Act
+    const resumen = obtenerResumen(tareas);
+
+    // Assert
+    expect(resumen).toEqual({ total: 2, pendientes: 0, terminadas: 2 });
+    expect(tareas).toEqual(copia);
+  });
+
+});
+
 // Los imports anteriores quedan preparados para que construyas la suite de forma incremental.
 void agregarTarea;
 void buscarTarea;

@@ -313,3 +313,45 @@ La función quedó en una sola línea, no modifica el array recibido y no depend
 ### Resultado
 
 Se ejecutaron quince pruebas unitarias, todas exitosas y sin errores.
+
+
+## Misión 8 - Resumen y composición
+
+**Driver:** Pablo Alexander Alejos Macias  
+**Navigator:** Christian Raul Paramo Bautista
+
+### Objetivo
+Implementar la función obtenerResumen(tareas), que devuelve un objeto { total, pendientes, terminadas }, combinando reglas que ya estaban probadas.
+
+### Ciclo RED - GREEN - REFACTOR
+
+**RED:**
+Se escribieron tres pruebas unitarias antes de implementar la función. Las tres fallaron porque obtenerResumen() todavía lanzaba el error "Misión 8 pendiente". Resultado: 3 pruebas fallidas y 15 exitosas.
+
+**GREEN:**
+Se implementó obtenerResumen() reutilizando obtenerPendientes() y obtenerTerminadas() de la Misión 5, y tareas.length para el total.
+
+Al ejecutar npm test, las dieciocho pruebas unitarias pasaron correctamente.
+
+**REFACTOR:**
+Se comparó la solución con una alternativa que calcula directamente los contadores. Se conservó la versión que reutiliza funciones (ver la comparación abajo).
+
+### Pruebas realizadas
+
+1. Obtener { total: 5, pendientes: 3, terminadas: 2 } de una colección mixta.
+2. Devolver todos los contadores en cero cuando la colección está vacía.
+3. Calcular el resumen sin modificar la colección original.
+
+### Comparación: reutilizar funciones vs. calcular directamente
+
+| Criterio | Reutilizar funciones | Cálculo directo |
+| --- | --- | --- |
+| ¿Cuál comunica mejor la intención? | Se lee como la definición: pendientes y terminadas | Hay que deducir que pendientes = total - terminadas |
+| ¿Cuál hace más trabajo? | Recorre la colección dos veces | Recorre la colección una vez |
+| ¿Cuál es más fácil de mantener? | La regla de "completada" vive en un solo lugar | Vuelve a escribir la condición t.completada, que ya existe en obtenerTerminadas() |
+
+Se eligió reutilizar las funciones: recorrer dos veces una lista de tareas no representa un costo relevante, y la regla de qué es una tarea pendiente o terminada queda definida en un solo lugar y protegida por sus propias pruebas.
+
+### Resultado
+
+Se ejecutaron dieciocho pruebas unitarias, todas exitosas y sin errores.
