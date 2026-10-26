@@ -254,6 +254,57 @@ describe("cambiarEstado", () => {
 });
 
 // MISIÓN 7: prueba eliminar existente, inexistente y colección vacía.
+
+describe("eliminarTarea", () => {
+
+  it("elimina la tarea con el id indicado sin modificar el original", () => {
+    // Arrange
+    const tareas = [
+      { id: 1, titulo: "Revisar requisitos", completada: false },
+      { id: 2, titulo: "Diseñar pruebas", completada: true },
+      { id: 3, titulo: "Refactorizar código", completada: false }
+    ];
+
+    // Act
+    const resultado = eliminarTarea(tareas, 2);
+
+    // Assert
+    expect(resultado).toEqual([
+      { id: 1, titulo: "Revisar requisitos", completada: false },
+      { id: 3, titulo: "Refactorizar código", completada: false }
+    ]);
+    expect(tareas).toHaveLength(3);
+    expect(resultado).not.toBe(tareas);
+  });
+
+  it("conserva todas las tareas cuando el id no existe", () => {
+    // Arrange
+    const tareas = [
+      { id: 1, titulo: "Revisar requisitos", completada: false },
+      { id: 2, titulo: "Diseñar pruebas", completada: true }
+    ];
+
+    // Act
+    const resultado = eliminarTarea(tareas, 99);
+
+    // Assert
+    expect(resultado).toEqual(tareas);
+    expect(resultado).toHaveLength(2);
+  });
+
+  it("devuelve un array vacío cuando la colección está vacía", () => {
+    // Arrange
+    const tareas = [];
+
+    // Act
+    const resultado = eliminarTarea(tareas, 1);
+
+    // Assert
+    expect(resultado).toEqual([]);
+  });
+
+});
+
 // MISIÓN 8: prueba obtenerResumen(), incluyendo colección vacía.
 
 // Los imports anteriores quedan preparados para que construyas la suite de forma incremental.

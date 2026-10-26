@@ -272,3 +272,44 @@ Esta implementación evita efectos secundarios y facilita las pruebas unitarias.
 ### Resultado
 
 Se ejecutaron doce pruebas unitarias, todas exitosas y sin errores.
+
+
+## Misión 7 - Eliminar tareas y probar casos frontera
+
+**Driver:** Pablo Alexander Alejos Macias  
+**Navigator:** Christian Raul Paramo Bautista
+
+### Objetivo
+Implementar la función eliminarTarea(tareas, id) para quitar una tarea por su identificador sin modificar la colección original, probando escenarios más allá del caso feliz.
+
+### Elección del método
+Antes de programar se compararon map(), filter() y find():
+
+- map() siempre devuelve un array del mismo tamaño, por lo que no sirve para quitar elementos.
+- find() devuelve un solo elemento, no una colección.
+- filter() expresa la intención "conservar todas las tareas excepto la del id indicado".
+
+Por eso se eligió filter().
+
+### Ciclo RED - GREEN - REFACTOR
+
+**RED:**
+Se escribieron tres pruebas unitarias antes de implementar la función. Las tres fallaron porque eliminarTarea() todavía lanzaba el error "Misión 7 pendiente". Resultado: 3 pruebas fallidas y 12 exitosas.
+
+**GREEN:**
+Se implementó eliminarTarea() con filter(), devolviendo las tareas cuyo id es distinto del indicado.
+
+Al ejecutar npm test, las quince pruebas unitarias pasaron correctamente.
+
+**REFACTOR:**
+La función quedó en una sola línea, no modifica el array recibido y no depende del DOM, por lo que no requirió cambios adicionales.
+
+### Pruebas realizadas
+
+1. Eliminar una tarea con un id existente sin modificar el array original.
+2. Conservar todas las tareas cuando el id no existe.
+3. Devolver un array vacío cuando la colección está vacía.
+
+### Resultado
+
+Se ejecutaron quince pruebas unitarias, todas exitosas y sin errores.
