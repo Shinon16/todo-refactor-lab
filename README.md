@@ -355,3 +355,54 @@ Se eligió reutilizar las funciones: recorrer dos veces una lista de tareas no r
 ### Resultado
 
 Se ejecutaron dieciocho pruebas unitarias, todas exitosas y sin errores.
+
+
+## Misión 9 - Integrar con la interfaz
+
+**Driver:** Pablo Alexander Alejos Macias  
+**Navigator:** Christian Raul Paramo Bautista
+
+### Objetivo
+Conectar taskService.js con app.js sin volver a mezclar responsabilidades. El DOM actúa como adaptador:
+
+```
+evento del usuario → app.js → taskService.js → nuevo estado → render() → DOM
+```
+
+### Cambios realizados
+
+- app.js importa las funciones de taskService.js y construye el estado inicial con crearTarea().
+- Agregar usa agregarTarea() en lugar de tareas.push().
+- Eliminar usa eliminarTarea() con el id de la tarea en lugar de splice() con el índice.
+- Se agregó el botón Completar/Reabrir, que usa cambiarEstado(). Las tareas terminadas se tachan con la clase .done que ya existía en styles.css.
+- Los filtros Todas, Pendientes y Terminadas funcionan con obtenerPendientes() y obtenerTerminadas().
+- El resumen muestra total, pendientes y terminadas con obtenerResumen().
+- Los elementos se crean con createElement y textContent en lugar de innerHTML, para que el texto escrito por el usuario no se interprete como HTML.
+
+app.js ya no contiene reglas de negocio: sólo lee eventos, llama al servicio y renderiza.
+
+### Cómo ejecutar la aplicación
+
+Los módulos de JavaScript no cargan abriendo index.html directamente, por lo que se usa el servidor de Vite (incluido con Vitest):
+
+```bash
+npx vite
+```
+
+y se abre la dirección que indica (por ejemplo http://localhost:5173).
+
+## Pruebas de integración manual
+
+| Escenario | Acción | Resultado esperado | Resultado observado |
+| --- | --- | --- | --- |
+| Alta válida | Escribir "Documentar README" y Agregar | Aparece una nueva tarea pendiente y cambia el resumen | Correcto: Total 4 · Pendientes 4 |
+| Alta inválida | Enviar título vacío | No se agrega; se muestra mensaje claro | Correcto: "Escribe un título antes de agregar." y el total sigue en 4 |
+| Cambio de estado | Completar "Diseñar pruebas" | Cambia estilo/estado y contadores | Correcto: se tacha, el botón cambia a Reabrir; Pendientes 3 · Terminadas 1 |
+| Filtro | Elegir Pendientes y luego Terminadas | Sólo se muestran las tareas del filtro | Correcto: 3 pendientes; 1 terminada |
+| Eliminar | Eliminar "Refactorizar código" | Desaparece y se actualiza el resumen | Correcto: Total 3 · Pendientes 2 · Terminadas 1 |
+
+### Registro de fallos
+
+| Entrada | Resultado observado | Resultado esperado | Corrección |
+| --- | --- | --- | --- |
+| Enviar título vacío y después completar una tarea | El mensaje "Escribe un título antes de agregar." seguía visible | El mensaje desaparece al realizar otra acción | Limpiar el mensaje en el evento de la lista antes de renderizar |
