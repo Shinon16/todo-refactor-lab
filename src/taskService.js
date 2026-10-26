@@ -1,47 +1,41 @@
 /*
  * TODO REFACTOR LAB · LÓGICA DE DOMINIO
  *
- * Completa estas funciones misión por misión. Favorece funciones que reciben
- * datos y devuelven datos, sin acceder al DOM. Ejecuta la suite después de
- * cada cambio.
+ * Funciones puras sobre la colección de tareas: reciben datos y devuelven
+ * datos nuevos, sin modificar la entrada y sin acceder al DOM.
+ * Cada función está protegida por pruebas en tests/taskService.test.js.
  */
+
+// Regla de negocio única: qué significa que una tarea esté terminada.
+function estaTerminada(tarea) {
+  return tarea.completada;
+}
 
 // MISIÓN 2
 export function crearTarea(id, titulo) {
-  return {
-    id,
-    titulo,
-    completada: false
-  };
+  return { id, titulo, completada: false };
 }
 
 // MISIÓN 3
-
 export function agregarTarea(tareas, nuevaTarea) {
   return [...tareas, nuevaTarea];
 }
 
-
 // MISIÓN 4
-
 export function buscarTarea(tareas, id) {
   return tareas.find(tarea => tarea.id === id);
 }
 
-
 // MISIÓN 5
-
 export function obtenerPendientes(tareas) {
-  return tareas.filter(tarea => !tarea.completada);
+  return tareas.filter(tarea => !estaTerminada(tarea));
 }
 
 export function obtenerTerminadas(tareas) {
-  return tareas.filter(tarea => tarea.completada);
+  return tareas.filter(estaTerminada);
 }
 
-
 // MISIÓN 6
-
 export function cambiarEstado(tareas, id) {
   return tareas.map(tarea =>
     tarea.id === id
@@ -50,15 +44,12 @@ export function cambiarEstado(tareas, id) {
   );
 }
 
-
 // MISIÓN 7
-
 export function eliminarTarea(tareas, id) {
   return tareas.filter(tarea => tarea.id !== id);
 }
 
 // MISIÓN 8
-
 export function obtenerResumen(tareas) {
   return {
     total: tareas.length,

@@ -406,3 +406,25 @@ y se abre la dirección que indica (por ejemplo http://localhost:5173).
 | Entrada | Resultado observado | Resultado esperado | Corrección |
 | --- | --- | --- | --- |
 | Enviar título vacío y después completar una tarea | El mensaje "Escribe un título antes de agregar." seguía visible | El mensaje desaparece al realizar otra acción | Limpiar el mensaje en el evento de la lista antes de renderizar |
+
+
+## Misión 10 - Refactor final protegido por pruebas
+
+**Driver:** Pablo Alexander Alejos Macias  
+**Navigator:** Christian Raul Paramo Bautista
+
+Con las 18 pruebas en verde se revisaron taskService.js, app.js y la suite. Sólo se cambió lo que se podía justificar; el comportamiento no cambió.
+
+| Archivo | Cambio | Problema que resuelve |
+| --- | --- | --- |
+| taskService.js | Función interna estaTerminada(tarea), usada por obtenerPendientes() y obtenerTerminadas() | Código duplicado: la regla "completada" estaba en dos lugares |
+| taskService.js | Comentario inicial actualizado | Comentario desactualizado ("Completa estas funciones…") |
+| taskService.test.js | Se eliminaron las líneas void agregarTarea; … del starter | Código muerto: todos los imports ya se usan |
+| taskService.test.js | Comentarios-instrucción reemplazados por etiquetas (// MISIÓN 3 · agregarTarea) | Comentarios que daban instrucciones en vez de documentar |
+| app.js | Cadena de if de filtros reemplazada por el objeto FILTROS | Condiciones difíciles de leer; facilita agregar filtros |
+| app.js | render() separado en renderLista() y renderResumen() | Función con más de una responsabilidad |
+
+### Verificación
+
+- npm test: 18 pruebas exitosas después del refactor, sin modificar ninguna aserción.
+- Se repitieron las pruebas manuales en el navegador (alta, completar, filtros y eliminar) con el mismo resultado que en la Misión 9.

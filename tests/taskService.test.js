@@ -11,11 +11,13 @@ import {
 } from "../src/taskService.js";
 
 /*
- * TODO REFACTOR LAB · SUITE STARTER
+ * TODO REFACTOR LAB · PRUEBAS UNITARIAS
  *
- * Activa/crea pruebas misión por misión. No escribas todas las soluciones de
- * una vez. Para cada comportamiento sigue RED → GREEN → REFACTOR.
+ * Cada describe protege una función de taskService.js. Las pruebas siguen
+ * Arrange–Act–Assert y se escribieron antes de la implementación (RED → GREEN → REFACTOR).
  */
+
+// MISIÓN 2 · crearTarea
 
 describe("crearTarea", () => {
   it("crea una tarea pendiente con id y título", () => {
@@ -31,7 +33,7 @@ describe("crearTarea", () => {
   });
 });
 
-// MISIÓN 3: agrega al menos dos pruebas para agregarTarea().
+// MISIÓN 3 · agregarTarea
 
 describe("agregarTarea", () => {
 
@@ -80,7 +82,7 @@ describe("agregarTarea", () => {
 
 });
 
-// MISIÓN 4: prueba id existente e inexistente para buscarTarea().
+// MISIÓN 4 · buscarTarea
 
 describe("buscarTarea", () => {
 
@@ -123,7 +125,7 @@ describe("buscarTarea", () => {
 
 });
 
-// MISIÓN 5: prueba colección mixta, sin coincidencias y vacía.
+// MISIÓN 5 · obtenerPendientes y obtenerTerminadas
 
 describe("obtenerPendientes", () => {
 
@@ -197,7 +199,7 @@ describe("obtenerTerminadas", () => {
 
 });
 
-// MISIÓN 6: prueba cambio correcto, otra tarea intacta e id inexistente.
+// MISIÓN 6 · cambiarEstado
 
 describe("cambiarEstado", () => {
 
@@ -253,7 +255,7 @@ describe("cambiarEstado", () => {
 
 });
 
-// MISIÓN 7: prueba eliminar existente, inexistente y colección vacía.
+// MISIÓN 7 · eliminarTarea
 
 describe("eliminarTarea", () => {
 
@@ -305,7 +307,7 @@ describe("eliminarTarea", () => {
 
 });
 
-// MISIÓN 8: prueba obtenerResumen(), incluyendo colección vacía.
+// MISIÓN 8 · obtenerResumen
 
 describe("obtenerResumen", () => {
 
@@ -354,12 +356,3 @@ describe("obtenerResumen", () => {
   });
 
 });
-
-// Los imports anteriores quedan preparados para que construyas la suite de forma incremental.
-void agregarTarea;
-void buscarTarea;
-void obtenerPendientes;
-void obtenerTerminadas;
-void cambiarEstado;
-void eliminarTarea;
-void obtenerResumen;

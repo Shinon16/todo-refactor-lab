@@ -33,10 +33,15 @@ let tareas = [
 let siguienteId = 4;
 let filtro = "todas";
 
+// Cada botón de filtro (data-filter) se asocia con una función de dominio ya probada.
+const FILTROS = {
+  todas: tareas => tareas,
+  pendientes: obtenerPendientes,
+  terminadas: obtenerTerminadas
+};
+
 function tareasVisibles() {
-  if (filtro === "pendientes") return obtenerPendientes(tareas);
-  if (filtro === "terminadas") return obtenerTerminadas(tareas);
-  return tareas;
+  return FILTROS[filtro](tareas);
 }
 
 function crearElementoTarea(tarea) {
@@ -63,7 +68,7 @@ function crearElementoTarea(tarea) {
   return li;
 }
 
-function render() {
+function renderLista() {
   const visibles = tareasVisibles();
   list.replaceChildren(...visibles.map(crearElementoTarea));
 
@@ -73,9 +78,16 @@ function render() {
     vacio.textContent = "No hay tareas para mostrar en este filtro.";
     list.append(vacio);
   }
+}
 
+function renderResumen() {
   const { total, pendientes, terminadas } = obtenerResumen(tareas);
   summary.textContent = `Total: ${total} · Pendientes: ${pendientes} · Terminadas: ${terminadas}`;
+}
+
+function render() {
+  renderLista();
+  renderResumen();
 }
 
 form.addEventListener("submit", (event) => {
