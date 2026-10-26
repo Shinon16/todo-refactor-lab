@@ -14,7 +14,8 @@ import {
   cambiarEstado,
   obtenerPendientes,
   obtenerTerminadas,
-  obtenerResumen
+  obtenerResumen,
+  buscarPorTexto
 } from "./taskService.js";
 
 const form = document.querySelector("#task-form");
@@ -23,6 +24,7 @@ const list = document.querySelector("#task-list");
 const message = document.querySelector("#message");
 const summary = document.querySelector("#summary");
 const filters = [...document.querySelectorAll("[data-filter]")];
+const searchInput = document.querySelector("#search-input");
 
 // Estado de la aplicación
 let tareas = [
@@ -32,6 +34,7 @@ let tareas = [
 ];
 let siguienteId = 4;
 let filtro = "todas";
+let busqueda = "";
 
 // Cada botón de filtro (data-filter) se asocia con una función de dominio ya probada.
 const FILTROS = {
@@ -41,7 +44,7 @@ const FILTROS = {
 };
 
 function tareasVisibles() {
-  return FILTROS[filtro](tareas);
+  return buscarPorTexto(FILTROS[filtro](tareas), busqueda);
 }
 
 function crearElementoTarea(tarea) {
@@ -75,7 +78,7 @@ function renderLista() {
   if (visibles.length === 0) {
     const vacio = document.createElement("li");
     vacio.className = "task";
-    vacio.textContent = "No hay tareas para mostrar en este filtro.";
+    vacio.textContent = "No hay tareas que coincidan con el filtro o la búsqueda.";
     list.append(vacio);
   }
 }
@@ -127,5 +130,10 @@ filters.forEach(button => button.addEventListener("click", () => {
   message.textContent = "";
   render();
 }));
+
+searchInput.addEventListener("input", () => {
+  busqueda = searchInput.value;
+  render();
+});
 
 render();

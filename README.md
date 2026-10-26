@@ -428,3 +428,52 @@ Con las 18 pruebas en verde se revisaron taskService.js, app.js y la suite. Sól
 
 - npm test: 18 pruebas exitosas después del refactor, sin modificar ninguna aserción.
 - Se repitieron las pruebas manuales en el navegador (alta, completar, filtros y eliminar) con el mismo resultado que en la Misión 9.
+
+
+## Misión 11 - Nuevo requerimiento: buscar por texto (extensión B)
+
+**Driver:** Pablo Alexander Alejos Macias  
+**Navigator:** Christian Raul Paramo Bautista
+
+### Extensión elegida
+**B. Buscar por texto.** Pregunta de prueba de la guía: ¿la búsqueda debe ignorar mayúsculas/minúsculas?
+
+Decisiones tomadas antes de programar:
+
+- Ignora mayúsculas y minúsculas.
+- Ignora acentos ("codigo" encuentra "código").
+- Un texto vacío o con sólo espacios no filtra: devuelve todas las tareas.
+
+### Ciclo RED - GREEN - REFACTOR
+
+**RED:**
+Se escribieron cuatro pruebas para buscarPorTexto(tareas, texto). Fallaron porque la función sólo lanzaba el error "Misión 11 pendiente". Resultado: 4 pruebas fallidas y 18 exitosas.
+
+**GREEN:**
+Se implementó una función interna normalizar() (quita acentos, pasa a minúsculas y recorta espacios) y buscarPorTexto() filtra las tareas cuyo título normalizado contiene el texto normalizado. Resultado: 22 pruebas exitosas.
+
+**REFACTOR:**
+El texto vacío no necesitó una condición aparte: al normalizarlo queda "", y todo título contiene la cadena vacía.
+
+### Pruebas realizadas
+
+1. "PRUEBAS" encuentra "Diseñar pruebas".
+2. "codigo" encuentra "Refactorizar código".
+3. "despliegue" devuelve un array vacío.
+4. "" y "   " devuelven todas las tareas.
+
+### Integración
+
+- index.html: caja de búsqueda junto a los filtros.
+- app.js: tareasVisibles() aplica la búsqueda sobre el filtro activo: `buscarPorTexto(FILTROS[filtro](tareas), busqueda)`.
+
+### ¿El refactor facilitó el cambio?
+Sí. Se agregó una función de dominio con sus pruebas, un campo en index.html, un listener y una línea en tareasVisibles(). Ninguna de las 18 pruebas existentes tuvo que modificarse.
+
+## Reflexión de pareja
+
+El cambio que más aumentó la mantenibilidad fue separar las reglas de negocio en taskService.js y dejar app.js sólo como adaptador del DOM. En el código inicial las tareas eran strings y el mismo bloque recorría los datos, decidía qué hacer y escribía HTML, así que cualquier cambio obligaba a tocar todo a la vez. Al convertir cada tarea en un objeto con id, título y estado, y al expresar cada operación como una función que recibe datos y devuelve datos nuevos, cada regla quedó en un solo lugar y pudo probarse sin abrir el navegador. La misión 11 lo confirmó: agregar la búsqueda por texto sólo requirió una función nueva con sus pruebas y una línea en tareasVisibles(), gracias al objeto FILTROS del refactor final.
+
+La prueba que nos dio más confianza fue la de cambiarEstado que verifica que la tarea modificada es un objeto nuevo y que el original conserva su estado. Ese error, mutar el objeto compartido, no se nota a simple vista en la interfaz y podría romper los filtros o el resumen sin avisar. También fueron valiosas las pruebas de casos frontera, como eliminar en una colección vacía o buscar con un texto vacío, porque nos obligaron a decidir el comportamiento antes de programarlo.
+
+Trabajar con el ciclo RED, GREEN y REFACTOR y alternar los roles de Driver y Navigator nos ayudó a explicar cada función antes de hacer commit.

@@ -57,3 +57,18 @@ export function obtenerResumen(tareas) {
     terminadas: obtenerTerminadas(tareas).length
   };
 }
+
+// MISIÓN 11 · Extensión B: buscar por texto
+// Quita acentos, pasa a minúsculas y elimina espacios en los extremos.
+function normalizar(texto) {
+  return texto
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .trim();
+}
+
+export function buscarPorTexto(tareas, texto) {
+  const buscado = normalizar(texto);
+  return tareas.filter(tarea => normalizar(tarea.titulo).includes(buscado));
+}

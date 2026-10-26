@@ -7,7 +7,8 @@ import {
   obtenerTerminadas,
   cambiarEstado,
   eliminarTarea,
-  obtenerResumen
+  obtenerResumen,
+  buscarPorTexto
 } from "../src/taskService.js";
 
 /*
@@ -353,6 +354,64 @@ describe("obtenerResumen", () => {
     // Assert
     expect(resumen).toEqual({ total: 2, pendientes: 0, terminadas: 2 });
     expect(tareas).toEqual(copia);
+  });
+
+});
+
+// MISIÓN 11 · Extensión B: buscarPorTexto
+// Decisión: la búsqueda ignora mayúsculas/minúsculas y acentos, y un texto vacío no filtra.
+
+describe("buscarPorTexto", () => {
+
+  const tareas = [
+    { id: 1, titulo: "Revisar requisitos", completada: false },
+    { id: 2, titulo: "Diseñar pruebas", completada: true },
+    { id: 3, titulo: "Refactorizar código", completada: false }
+  ];
+
+  it("encuentra coincidencias parciales sin importar mayúsculas o minúsculas", () => {
+    // Arrange
+    const texto = "PRUEBAS";
+
+    // Act
+    const resultado = buscarPorTexto(tareas, texto);
+
+    // Assert
+    expect(resultado).toEqual([
+      { id: 2, titulo: "Diseñar pruebas", completada: true }
+    ]);
+  });
+
+  it("ignora los acentos al comparar", () => {
+    // Arrange
+    const texto = "codigo";
+
+    // Act
+    const resultado = buscarPorTexto(tareas, texto);
+
+    // Assert
+    expect(resultado.map(tarea => tarea.id)).toEqual([3]);
+  });
+
+  it("devuelve un array vacío cuando ninguna tarea coincide", () => {
+    // Arrange
+    const texto = "despliegue";
+
+    // Act
+    const resultado = buscarPorTexto(tareas, texto);
+
+    // Assert
+    expect(resultado).toEqual([]);
+  });
+
+  it("devuelve todas las tareas cuando el texto está vacío o sólo tiene espacios", () => {
+    // Act
+    const sinTexto = buscarPorTexto(tareas, "");
+    const soloEspacios = buscarPorTexto(tareas, "   ");
+
+    // Assert
+    expect(sinTexto).toEqual(tareas);
+    expect(soloEspacios).toEqual(tareas);
   });
 
 });
