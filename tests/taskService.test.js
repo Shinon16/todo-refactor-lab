@@ -198,6 +198,61 @@ describe("obtenerTerminadas", () => {
 });
 
 // MISIÓN 6: prueba cambio correcto, otra tarea intacta e id inexistente.
+
+describe("cambiarEstado", () => {
+
+  it("cambia una tarea pendiente a terminada sin modificar el original", () => {
+    // Arrange
+    const tareas = [
+      { id: 1, titulo: "Revisar requisitos", completada: false },
+      { id: 2, titulo: "Diseñar pruebas", completada: false }
+    ];
+
+    // Act
+    const resultado = cambiarEstado(tareas, 1);
+
+    // Assert
+    expect(resultado[0].completada).toBe(true);
+    expect(tareas[0].completada).toBe(false);
+    expect(resultado).not.toBe(tareas);
+    expect(resultado[0]).not.toBe(tareas[0]);
+  });
+
+  it("cambia una tarea terminada a pendiente sin alterar las demás", () => {
+    // Arrange
+    const tareas = [
+      { id: 1, titulo: "Revisar requisitos", completada: true },
+      { id: 2, titulo: "Diseñar pruebas", completada: false },
+      { id: 3, titulo: "Refactorizar código", completada: true }
+    ];
+
+    // Act
+    const resultado = cambiarEstado(tareas, 1);
+
+    // Assert
+    expect(resultado[0].completada).toBe(false);
+    expect(resultado[1]).toEqual(tareas[1]);
+    expect(resultado[2]).toEqual(tareas[2]);
+    expect(tareas[0].completada).toBe(true);
+  });
+
+  it("conserva el contenido de la colección cuando el id no existe", () => {
+    // Arrange
+    const tareas = [
+      { id: 1, titulo: "Revisar requisitos", completada: false },
+      { id: 2, titulo: "Diseñar pruebas", completada: true }
+    ];
+
+    // Act
+    const resultado = cambiarEstado(tareas, 10);
+
+    // Assert
+    expect(resultado).toEqual(tareas);
+    expect(resultado).not.toBe(tareas);
+  });
+
+});
+
 // MISIÓN 7: prueba eliminar existente, inexistente y colección vacía.
 // MISIÓN 8: prueba obtenerResumen(), incluyendo colección vacía.
 

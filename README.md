@@ -231,3 +231,44 @@ El método devuelve una nueva colección sin alterar el array original, permitie
 ### Resultado
 
 Se ejecutaron nueve pruebas unitarias, todas exitosas y sin errores.
+
+
+## Misión 6 - Cambiar estado de tareas utilizando map()
+
+**Responsable de implementación:** Christian Raul Paramo Bautista
+
+### Objetivo
+Implementar la función cambiarEstado(tareas, id) para modificar el estado de una tarea sin alterar el array ni el objeto original.
+
+### Ciclo RED - GREEN - REFACTOR
+
+**RED:**
+Se desarrollaron tres pruebas unitarias antes de implementar la función. Las tres fallaron porque cambiarEstado() todavía no estaba implementada.
+
+**GREEN:**
+Se implementó cambiarEstado() utilizando map() y el operador spread (...).
+
+La función identifica la tarea mediante su id y cambia la propiedad completada de false a true o viceversa.
+
+Después de ejecutar npm test, las doce pruebas unitarias pasaron correctamente.
+
+**REFACTOR:**
+Se revisó la implementación y se determinó que no requería cambios adicionales, ya que utiliza map() correctamente, mantiene una única responsabilidad y evita modificar los datos originales.
+
+### Pruebas realizadas
+
+1. Cambiar una tarea pendiente a terminada sin modificar el objeto original.
+2. Cambiar una tarea terminada a pendiente sin alterar las demás tareas.
+3. Conservar el contenido de la colección cuando el identificador no existe.
+
+### Decisiones de diseño
+
+Se utilizó map() porque necesitamos transformar una colección de tareas y devolver un nuevo array.
+
+El operador spread permite copiar la tarea seleccionada y modificar únicamente su propiedad completada.
+
+Esta implementación evita efectos secundarios y facilita las pruebas unitarias.
+
+### Resultado
+
+Se ejecutaron doce pruebas unitarias, todas exitosas y sin errores.
